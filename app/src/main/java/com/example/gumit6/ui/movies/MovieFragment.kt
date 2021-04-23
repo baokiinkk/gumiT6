@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.lifecycle.Observer
 import com.example.gumit6.BuildConfig
 import com.example.gumit6.R
@@ -31,9 +33,15 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
         viewmodel.isClick.observe(viewLifecycleOwner, Observer {
             it?.let {
-                viewmodel.getMovie(baseBinding.spinner.selectedItem.toString(),viewmodel.keyword.value)
+                viewmodel.keyword.value?.let {
+                    viewmodel.getMovie(baseBinding.spinner.selectedItem.toString(),it)
+                }
                 sp.edit().putString("key",viewmodel.keyword.value).apply()
             }
         })
+
     }
+
+
+
 }

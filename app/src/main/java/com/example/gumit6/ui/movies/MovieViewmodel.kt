@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class MovieViewmodel(val data:MovieUseCase) :ViewModel(){
     val dataCategory:MutableLiveData<List<String>?> = MutableLiveData(null)
     val dataMovie:MutableLiveData<List<String>?> = MutableLiveData(null)
-    val keyword:MutableLiveData<String?> = MutableLiveData(null)
+    val keyword:MutableLiveData<String> = MutableLiveData("")
     val isClick:MutableLiveData<Boolean?> = MutableLiveData(null)
     val valueSelect:MutableLiveData<String?> = MutableLiveData(null)
     fun getCategory(){
@@ -24,7 +24,7 @@ class MovieViewmodel(val data:MovieUseCase) :ViewModel(){
             }
         }
     }
-    fun getMovie(idCategory: String,key:String?=null){
+    fun getMovie(idCategory: String,key:String){
         viewModelScope.launch(Dispatchers.IO){
             data.getMovie(idCategory,key){
                 dataMovie.postValue(it)

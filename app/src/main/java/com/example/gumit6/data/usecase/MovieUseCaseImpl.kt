@@ -6,17 +6,17 @@ import com.example.gumit6.data.repository.Repository
 
 class MovieUseCaseImpl(override val repo: Repository) : MovieUseCase {
 
-    override suspend fun getMovie(idCategory:String,key:String?,getdata: (List<String>) -> Unit) {
-        if(idCategory == "Choose Category" && key == null)
+    override suspend fun getMovie(idCategory:String,key:String,getdata: (List<String>) -> Unit) {
+        if(idCategory == "Choose Category" && key == "")
             repo.getAllDataMovie {
                 getdata(it.map { data->data.name })
             }
-        else if(idCategory != "Choose Category" && key == null){
+        else if(idCategory != "Choose Category" && key == ""){
             repo.getDataMovieByIdCategory(idCategory){
                 getdata(it.map { data->data.name })
             }
         }
-        else if(idCategory != "Choose Category" && key != null){
+        else if(idCategory != "Choose Category" && key != ""){
             repo.getDataMovieByIdCaAndKeyword(idCategory,key){
                 getdata(it.map { data->data.name })
             }
