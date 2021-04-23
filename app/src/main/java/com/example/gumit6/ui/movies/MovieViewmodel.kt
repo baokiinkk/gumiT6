@@ -13,9 +13,10 @@ import kotlinx.coroutines.launch
 
 class MovieViewmodel(val data:MovieUseCase) :ViewModel(){
     val dataCategory:MutableLiveData<List<String>?> = MutableLiveData(null)
-    val dataMovie:MutableLiveData<MutableList<Movie>?> = MutableLiveData(null)
+    val dataMovie:MutableLiveData<List<String>?> = MutableLiveData(null)
     val keyword:MutableLiveData<String?> = MutableLiveData(null)
     val isClick:MutableLiveData<Boolean?> = MutableLiveData(null)
+    val valueSelect:MutableLiveData<String?> = MutableLiveData(null)
     fun getCategory(){
         viewModelScope.launch(Dispatchers.IO) {
             data.getAllDataCategory {

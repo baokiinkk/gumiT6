@@ -25,17 +25,6 @@ class AddMovieFragment : BaseFragment<FragmentAddMovieBinding>(){
     override fun onCreateViews() {
         baseBinding.viewmodel = viewmodel
         viewmodel.getCategory()
-        viewmodel.dataCategory.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                val listCategoryName = mutableListOf<String>()
-                baseBinding.spinner.adapter = ArrayAdapter<String>(requireContext(),
-                    android.R.layout.simple_spinner_dropdown_item,
-                    it.map {
-                        data->data.categories
-                })
-
-            }
-        })
         viewmodel.isClick.observe(viewLifecycleOwner, Observer {
             it?.let {
                viewmodel.addMovie(baseBinding.spinner.selectedItem.toString())

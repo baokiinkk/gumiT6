@@ -12,14 +12,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddMovieViewmodel(val data:Repository) :ViewModel(){
-    val dataCategory:MutableLiveData<MutableList<Category>?> = MutableLiveData(null)
+    val dataCategory:MutableLiveData<List<String>?> = MutableLiveData(null)
     val movieName:MutableLiveData<String?> = MutableLiveData(null)
     val isClick:MutableLiveData<Boolean?> = MutableLiveData(null)
     val isFinish:MutableLiveData<Boolean?> = MutableLiveData(null)
     fun getCategory(){
         viewModelScope.launch(Dispatchers.IO) {
             data.getAllDataCategory {
-                dataCategory.postValue(it)
+                dataCategory.postValue(it.map { data->data.categories })
             }
         }
     }

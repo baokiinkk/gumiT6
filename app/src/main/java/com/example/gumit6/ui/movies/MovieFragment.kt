@@ -28,24 +28,11 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         viewmodel.getCategory()
         sp = requireActivity().getSharedPreferences("keyword", Context.MODE_PRIVATE)
         viewmodel.keyword.postValue(sp.getString("key",null))
-        viewmodel.dataCategory.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                baseBinding.spinner.adapter = ArrayAdapter<String>(requireContext(),
-                    android.R.layout.simple_spinner_dropdown_item,it)
-
-            }
-        })
 
         viewmodel.isClick.observe(viewLifecycleOwner, Observer {
             it?.let {
                 viewmodel.getMovie(baseBinding.spinner.selectedItem.toString(),viewmodel.keyword.value)
                 sp.edit().putString("key",viewmodel.keyword.value).apply()
-            }
-        })
-        viewmodel.dataMovie.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                baseBinding.lv.adapter = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,it.map { data->data.name })
-                viewmodel.dataMovie.value = null
             }
         })
     }
